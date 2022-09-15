@@ -1,4 +1,4 @@
-package com.applegarthapps.ui.theme
+package com.applegarthapps.presentation.ui.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.runtime.Composable
