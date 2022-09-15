@@ -9,13 +9,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.applegarthapps.R
+import com.applegarthapps.data.model.local.Note
 import com.applegarthapps.presentation.components.NoteButton
 import com.applegarthapps.presentation.components.NoteInputText
 import com.applegarthapps.presentation.ui.theme.TheNoteBookTheme
 import com.applegarthapps.presentation.ui.theme.newBackgroundColor
 
 @Composable
-fun NoteScreen() {
+fun NoteScreen(
+    notes: List<Note>,
+    onAddNote: (Note) -> Unit,
+    onRemoveNote: (Note) -> Unit,
+//    onEditNote: (Note) -> Unit
+
+
+) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     Column(
@@ -42,20 +50,22 @@ fun NoteScreen() {
                 text = title,
                 label = "Title",
                 onTextChange = { title = it },
-
-
                 )
             NoteInputText(
                 text = description,
                 label = "Add Your Note",
                 onTextChange = { description = it },
-
                 )
-
             Spacer(modifier = Modifier.height(16.dp))
             NoteButton(
                 text = "Save Note",
-                onClick = { /*TODO*/ })
+                onClick = {
+                    if (title.isNotEmpty() && description.isNotEmpty()) {
+                        //save to list
+                        title = ""
+                        description = ""
+                    }
+                })
             Spacer(modifier = Modifier.height(16.dp))
             Divider(
                 modifier = Modifier
@@ -86,7 +96,12 @@ fun NoteScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.newBackgroundColor
         ) {
-            NoteScreen()
+            NoteScreen(
+                notes = emptyList(),
+                onAddNote = {},
+                onRemoveNote = {},
+
+            )
         }
     }
 }

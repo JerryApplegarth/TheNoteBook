@@ -21,7 +21,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.newBackgroundColor
                 ) {
-                    NoteScreen()
+                    NoteScreen(notes = emptyList(),
+                        onAddNote = {},
+                        onRemoveNote = {},)
                 }
             }
         }
