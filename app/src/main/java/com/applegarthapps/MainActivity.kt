@@ -19,7 +19,9 @@ import com.applegarthapps.presentation.screens.NoteScreen
 import com.applegarthapps.presentation.screens.NoteViewModel
 import com.applegarthapps.presentation.ui.theme.TheNoteBookTheme
 import com.applegarthapps.presentation.ui.theme.newBackgroundColor
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
