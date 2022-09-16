@@ -1,5 +1,6 @@
 package com.applegarthapps.presentation.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +36,7 @@ fun NoteScreen(
 ) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .padding(0.dp)
@@ -69,9 +72,14 @@ fun NoteScreen(
                 text = "Save Note",
                 onClick = {
                     if (title.isNotEmpty() && description.isNotEmpty()) {
-                        //save to list
+                        onAddNote(Note(
+                            title = title,
+                            description = description
+                        ))
+                        Toast.makeText(context, "Your Note has been added", Toast.LENGTH_SHORT).show()
                         title = ""
                         description = ""
+
                     }
                 })
             Spacer(modifier = Modifier.height(16.dp))
@@ -89,7 +97,10 @@ fun NoteScreen(
                     .padding(12.dp)
             ) {
                 items(notes) { note ->
-                    NoteRow(note = note, onNoteClick = {})
+                    NoteRow(note = note, onNoteClick = {
+                        onRemoveNote(note)
+                    })
+
 
                 }
 
