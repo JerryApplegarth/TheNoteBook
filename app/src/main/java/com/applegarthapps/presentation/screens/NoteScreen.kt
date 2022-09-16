@@ -1,6 +1,11 @@
 package com.applegarthapps.presentation.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -9,10 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.applegarthapps.R
+import com.applegarthapps.data.NoteDataSource
 import com.applegarthapps.data.model.local.Note
 import com.applegarthapps.presentation.components.NoteButton
 import com.applegarthapps.presentation.components.NoteInputText
+import com.applegarthapps.presentation.components.NoteRow
 import com.applegarthapps.presentation.ui.theme.TheNoteBookTheme
+import com.applegarthapps.presentation.ui.theme.cardBackground
 import com.applegarthapps.presentation.ui.theme.newBackgroundColor
 
 @Composable
@@ -50,12 +58,12 @@ fun NoteScreen(
                 text = title,
                 label = "Title",
                 onTextChange = { title = it },
-                )
+            )
             NoteInputText(
                 text = description,
                 label = "Add Your Note",
                 onTextChange = { description = it },
-                )
+            )
             Spacer(modifier = Modifier.height(16.dp))
             NoteButton(
                 text = "Save Note",
@@ -74,14 +82,26 @@ fun NoteScreen(
                 color = MaterialTheme.colors.primary,
                 thickness = 2.dp
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
+            ) {
+                items(notes) { note ->
+                    NoteRow(note = note, onNoteClick = {})
+
+                }
 
 
+            }
         }
+
 
     }
 
-
 }
+
 
 @Preview(
     showSystemUi = true,
@@ -97,11 +117,11 @@ fun NoteScreenPreview() {
             color = MaterialTheme.colors.newBackgroundColor
         ) {
             NoteScreen(
-                notes = emptyList(),
+                notes = NoteDataSource().loadNotes(),
                 onAddNote = {},
                 onRemoveNote = {},
 
-            )
+                )
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import com.applegarthapps.data.NoteDataSource
 import com.applegarthapps.presentation.screens.NoteScreen
 import com.applegarthapps.presentation.ui.theme.TheNoteBookTheme
 import com.applegarthapps.presentation.ui.theme.newBackgroundColor
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.newBackgroundColor
                 ) {
-                    NoteScreen(notes = emptyList(),
+                    NoteScreen(
+                        NoteDataSource().loadNotes(),
                         onAddNote = {},
                         onRemoveNote = {},)
                 }
