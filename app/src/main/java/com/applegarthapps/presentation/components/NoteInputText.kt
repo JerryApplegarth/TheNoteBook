@@ -31,12 +31,14 @@ fun NoteInputText(
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Done
         ),
+        modifier = modifier,
         keyboardActions = KeyboardActions(
             onDone = {
                 onImeAction()
                 focusManager.clearFocus()
 
-            }
+            },
+
         )
 
     )
