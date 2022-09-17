@@ -15,11 +15,10 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.applegarthapps.data.model.local.Note
 import com.applegarthapps.presentation.ui.theme.cardBackground
-import java.time.format.DateTimeFormatter
+import com.applegarthapps.presentation.utils.formatDate
 
 @Composable
 fun NoteRow(
@@ -38,7 +37,6 @@ fun NoteRow(
     ) {
         Column(
             modifier
-                .clickable { }
                 .padding(horizontal = 6.dp, vertical = 6.dp),
             horizontalAlignment = Alignment.Start
         )
@@ -47,12 +45,9 @@ fun NoteRow(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Edit icon",
                 modifier = Modifier
-                    .padding(end = 16.dp)
-                    //.clickable { onNoteClick }
+                    .clickable { onNoteClick }
                     .align(Alignment.End)
-
-
-                )
+            )
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.h6
@@ -61,15 +56,14 @@ fun NoteRow(
                 text = note.description,
                 style = MaterialTheme.typography.body2
             )
-//            Text(
-//                text = note.entryDate.format(DateTimeFormatter.BASIC_ISO_DATE),
-//                style = MaterialTheme.typography.caption
-//            )
+            Text(
+                text = formatDate(note.entryDate.time),
+                style = MaterialTheme.typography.caption
+            )
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Edit icon",
                 modifier = Modifier
-                    .padding(end = 16.dp)
                     .clickable { onNoteClick(note) }
                     .align(Alignment.End)
             )

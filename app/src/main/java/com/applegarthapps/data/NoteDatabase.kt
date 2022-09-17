@@ -7,7 +7,7 @@ import com.applegarthapps.data.model.local.Note
 import com.applegarthapps.presentation.utils.DateConverter
 import com.applegarthapps.presentation.utils.UUIDConverter
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class, UUIDConverter::class)
 abstract class NoteDatabase: RoomDatabase() {
 

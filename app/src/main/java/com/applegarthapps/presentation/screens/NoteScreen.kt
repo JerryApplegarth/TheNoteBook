@@ -1,12 +1,9 @@
 package com.applegarthapps.presentation.screens
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,8 +18,8 @@ import com.applegarthapps.data.model.local.Note
 import com.applegarthapps.presentation.components.NoteButton
 import com.applegarthapps.presentation.components.NoteInputText
 import com.applegarthapps.presentation.components.NoteRow
+import com.applegarthapps.presentation.components.TopApp
 import com.applegarthapps.presentation.ui.theme.TheNoteBookTheme
-import com.applegarthapps.presentation.ui.theme.cardBackground
 import com.applegarthapps.presentation.ui.theme.newBackgroundColor
 
 @Composable
@@ -37,20 +34,13 @@ fun NoteScreen(
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     val context = LocalContext.current
+
     Column(
         modifier = Modifier
-            .padding(0.dp)
+            .padding(6.dp)
     ) {
-        TopAppBar(
-            title = {
-                Text(text = stringResource(id = R.string.app_name))
-            },
-            actions = {
-
-            },
-            backgroundColor = MaterialTheme.colors.primary
-
-        )
+        TopApp()
+        //Content goes here
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -59,58 +49,58 @@ fun NoteScreen(
             Spacer(modifier = Modifier.height(6.dp))
             NoteInputText(
                 text = title,
-                label = "Title",
+                label = stringResource(R.string.title),
                 onTextChange = { title = it },
             )
             NoteInputText(
                 text = description,
-                label = "Add Your Note",
+                label = stringResource(R.string.add_your_note),
                 onTextChange = { description = it },
             )
+            //add button
             Spacer(modifier = Modifier.height(16.dp))
             NoteButton(
-                text = "Save Note",
+                text = stringResource(R.string.save_note),
                 onClick = {
                     if (title.isNotEmpty() && description.isNotEmpty()) {
-                        onAddNote(Note(
-                            title = title,
-                            description = description
-                        ))
-                        Toast.makeText(context, "Your Note has been added", Toast.LENGTH_SHORT).show()
+                        onAddNote(
+                            Note(
+                                title = title,
+                                description = description
+                            )
+                        )
+                        Toast.makeText(
+                            context,
+                            "Your Note has been added",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                         title = ""
                         description = ""
 
                     }
                 })
-            Spacer(modifier = Modifier.height(16.dp))
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth(),
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth(),
 
-                color = MaterialTheme.colors.primary,
-                thickness = 2.dp
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp)
-            ) {
-                items(notes) { note ->
-                    NoteRow(note = note, onNoteClick = {
+            color = MaterialTheme.colors.primary,
+            thickness = 2.dp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        LazyColumn(
+        ) {
+            items(notes) { note ->
+                NoteRow(
+                    note = note,
+                    onNoteClick = {
                         onRemoveNote(note)
                     })
-
-
-                }
-
-
             }
         }
-
-
     }
-
 }
 
 
