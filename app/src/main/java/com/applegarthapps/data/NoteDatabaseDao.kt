@@ -20,7 +20,7 @@ interface NoteDatabaseDao {
     suspend fun update(note: Note)
 
     @Query("DELETE FROM notes_tbl")
-    suspend fun delete()
+    suspend fun deleteAll()
 
     @Delete
     suspend fun deleteNote(note: Note)
