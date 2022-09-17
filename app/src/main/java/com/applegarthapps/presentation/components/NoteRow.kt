@@ -61,10 +61,10 @@ fun NoteRow(
                 text = note.description,
                 style = MaterialTheme.typography.body2
             )
-            Text(
-                text = note.entryDate.format(DateTimeFormatter.BASIC_ISO_DATE),
-                style = MaterialTheme.typography.caption
-            )
+//            Text(
+//                text = note.entryDate.format(DateTimeFormatter.BASIC_ISO_DATE),
+//                style = MaterialTheme.typography.caption
+//            )
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Edit icon",
