@@ -7,10 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.applegarthapps.data.NoteDataSource
@@ -32,8 +29,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.newBackgroundColor
                 ) {
-                    val noteViewModel: NoteViewModel = viewModel()
-                    //val noteViewModel: NoteViewModel by viewModels()
+                    //val noteViewModel = viewModel<NoteViewModel>() //also works
+                    val noteViewModel: NoteViewModel by viewModels()
                     NotesApp(noteViewModel = noteViewModel)
 
                 }
@@ -43,8 +40,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NotesApp(noteViewModel: NoteViewModel = viewModel()) {
-    val notesList = noteViewModel.getAllNotes()
+fun NotesApp(noteViewModel: NoteViewModel) {
+    val notesList = noteViewModel.noteList.collectAsState().value
     NoteScreen(
         notes = notesList,
         onAddNote = { noteViewModel.addNote(it) },
